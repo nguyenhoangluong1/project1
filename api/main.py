@@ -16,7 +16,7 @@ CORS(app)
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 SERVICE_ACCOUNT_FILE = os.getenv('SERVICE_ACCOUNT_FILE')
 SPREADSHEET_ID = os.getenv('SHEET_ID')
-RANGE_NAME = 'Sheet1!C2:F2'
+RANGE_NAME = 'Sheet1!B2:E2'
 
 # Tải thông tin xác thực từ file json
 creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
@@ -51,4 +51,4 @@ def get_latest_data():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
