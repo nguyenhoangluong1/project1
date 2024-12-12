@@ -1,0 +1,10 @@
+# Bỏ qua thư mục node_modules
+node_modules/
+# Bỏ qua tệp môi trường
+.env
+# Bỏ qua tệp log
+*.log
+
+key.json
+
+requirements.txt

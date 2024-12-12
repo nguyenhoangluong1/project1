@@ -1,0 +1,170 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Các phần tử con được xếp theo chiều dọc */
+    justify-content: space-between; /* Đảm bảo các phần tử bắt đầu từ trên cùng */
+    height: 100vh; /* Đảm bảo body chiếm toàn bộ chiều cao màn hình */
+}
+
+body#background {
+    background-image: url('./3.jpg');
+    background-size: cover; /* Đảm bảo background phủ toàn bộ chiều cao và chiều rộng */
+    background-position: center top; /* Đẩy background lên phía trên */
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Đảm bảo background phủ hết chiều cao */
+    width: 100%; /* Đảm bảo background phủ hết chiều rộng */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+header {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: #ffff;
+    font-size: 40px;
+}
+
+.clock {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    background: rgba(51, 51, 51, 0.4);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    flex-direction: column; /* Các phần tử thời gian và ngày xếp theo chiều dọc */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.time {
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+
+.date {
+    font-size: 20px;
+    margin-top: 10px;
+    color: #fff; /* Màu chữ sáng */
+    padding: 10px; /* Thêm padding để phần ngày có không gian xung quanh */
+}
+
+span {
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
+}
+
+.weather-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.weather-box {
+    color: #000; /* Màu chữ đậm */
+    background: rgba(255, 255, 255, 0.6); /* Nền bán trong suốt */
+    backdrop-filter: blur(8px) saturate(120%); /* Hiệu ứng mờ nhẹ hơn */
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    padding: 40px; /* Tăng kích thước padding */
+    width: 300px; /* Tăng chiều rộng box */
+    margin: 30px; /* Khoảng cách giữa các box lớn hơn */
+    text-align: center;
+    border-radius: 12px; /* Góc bo tròn mềm mại */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Đường viền mờ */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+    cursor: pointer;
+
+}
+
+
+.weather-box h3 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #ffffff; /* Màu chữ cho tiêu đề */
+}
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #ffffff; /* Màu cho biểu tượng */
+}
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    z-index: 10;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa của footer */
+    margin: 0 auto; /* Căn giữa footer */
+    padding: 0 20px;
+    width: 90%; /* Chiều rộng của footer sẽ luôn 100% */
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact-info a {
+    text-decoration: none;
+}
+
+.contact-info img {
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 600px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+

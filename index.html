@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>LiveWeather Station</title>
+    <link rel="icon" href="./style/icon.svg">
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+<body id="background">
+    <header>
+        <h1>Hiển thị các thông số thời tiết theo thời gian thực</h1>
+    </header>
+
+    <!-- Hiển thị giờ -->
+    <div class="clock">
+        <div class="time">
+            <span id="hours">00</span>
+            <span>:</span>
+            <span id="minutes">00</span>
+            <span>:</span>
+            <span id="seconds">00</span>
+        </div>
+    </div>
+
+    <!--Phần hiển thị ngày-->
+    <div class="date" id="date">Thứ Tư, 11 Tháng 12, 2024</div> 
+
+    <br></br>
+
+    <div class="weather-container">
+        <!-- Temperature Box -->
+        <div class="weather-box">
+            <div class="icon">🌡️</div>
+            <h3>Nhiệt độ</h3>
+            <p id="temperature">20°C</p>
+        </div>
+
+        <!-- Humidity Box -->
+        <div class="weather-box">
+            <div class="icon">💧</div>
+            <h3>Độ ẩm</h3>
+            <p id="humidity">55%</p>
+        </div>
+
+        <!-- Precipitation Box -->
+        <div class="weather-box">
+            <div class="icon">🌧️</div>
+            <h3>Lượng mưa</h3>
+            <p id="precipitation">00 mm</p>
+        </div>
+
+        <!-- Wind Speed Box -->
+        <div class="weather-box">
+            <div class="icon">🌬️</div>
+            <h3>Tốc độ gió</h3>
+            <p id="windSpeed">8 km/h</p>
+        </div>
+    </div>
+
+    <!-- Các phần khác của trang -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+            <div class="contact-info">
+                <a href="https://www.facebook.com/yourprofile" target="_blank" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Icon" />
+                </a>
+                <p>Phone: +123 456 7890</p>
+                <p>Email: contact@yourcompany.com</p>
+            </div>
+        </div>
+    </footer>
+    
+    
+
+    <script src="./main.js"></script>
+</body>
+</html>
