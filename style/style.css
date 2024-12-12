@@ -135,11 +135,11 @@ footer {
     justify-content: space-between;
     align-items: center;
     max-width: 1200px; /* Giới hạn chiều rộng tối đa của footer */
-    margin: 0 auto; /* Căn giữa footer */
-    padding: 0 20px;
-    width: 90%; /* Chiều rộng của footer sẽ luôn 100% */
-}
-
+    /* margin: 0 auto; Căn giữa footer */
+    /* padding: 0 20px; */
+    /* width: 90%; Chiều rộng của footer sẽ luôn 100% */
+/* } */
+/* 
 .contact-info {
     display: flex;
     align-items: center;
@@ -153,7 +153,7 @@ footer {
 .contact-info img {
     width: 30px;
     height: 30px;
-} */
+/* } */ 
 
 @media (max-width: 600px) {
     .footer-content {
