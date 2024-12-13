@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/get-latest-data";
+const API_URL = "https://project1-two-beta.vercel.app/";
 
 function fetchLatestData() {
   fetch(API_URL)
