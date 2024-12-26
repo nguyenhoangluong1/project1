@@ -34,8 +34,8 @@ function updateUI(data) {
   document.getElementById("windSpeed").textContent = `${windSpeed} km/h`;
 }
 
-// Gửi 1 request sau mỗi 1 phút
-setInterval(fetchLatestData, 60000);
+// Gửi 1 request sau mỗi 30 giây
+setInterval(fetchLatestData, 30000);
 
 // ------------------------------------------------------------------------------------------------
 
