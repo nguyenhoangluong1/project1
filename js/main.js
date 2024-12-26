@@ -1,4 +1,4 @@
-const API_URL = "https://project1-two-beta.vercel.app/get-latetst-data";
+const API_URL = "https://project1-two-beta.vercel.app/get-latest-data";
 // const API_URL = "http://127.0.0.1:5000/get-latest-data";
 
 // Lấy dữ liệu mới nhất từ server
