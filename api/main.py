@@ -16,7 +16,7 @@ CORS(app)
 # Các cài đặt cho Google Sheets
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_API_KEY')
-SPREADSHEET_ID = os.getenv('SPREADSHEET_ID')
+SPREADSHEET_ID = os.getenv('SPREADSHEET_ID1')
 RANGE_NAME = 'Sheet1!C2:F2'
 HISTORY_RANGE = 'Sheet1!A1:F'
 
@@ -51,6 +51,7 @@ def get_latest_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+"""
 @app.route("/get-history", methods=["GET"])
 def get_history():
     try:
@@ -80,6 +81,29 @@ def get_history():
                 "precipitation": row[3],
                 "wind_speed": row[4]
             })
+
+        return jsonify({"history": history})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+"""
+
+@app.route("/get-history", methods=["GET"])
+def get_history():
+    try:
+        service = get_sheets_service()
+        sheet = service.spreadsheets()
+        # Lấy dữ liệu từ Google Sheets
+        result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range="Sheet1!A2:F").execute()
+        values = result.get("values", [])
+
+        # Giới hạn số lượng kết quả trả về là 20
+        history = [{"date": row[0], 
+                    "time": row[1], 
+                    "temperature": row[2], 
+                    "humidity": row[3], 
+                    "precipitation": row[4], 
+                    "wind_speed": row[5]} for row in values[:20]]
 
         return jsonify({"history": history})
 
