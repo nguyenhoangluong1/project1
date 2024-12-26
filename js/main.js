@@ -19,7 +19,7 @@ toggleBtn.addEventListener("click", (e) => {
 toCelsius.addEventListener("click", () => {
   if (currentUnit !== "C" && currentTemp !== null) {
     currentTemp = ((currentTemp - 32) * 5) / 9;
-    temperatureElement.innerText = `${curentTemp.toFixed(2)}°C`;
+    temperatureElement.innerText = `${currentTemp.toFixed(2)}°C`;
     currentUnit = "C";
   }
   unitMenu.classList.remove("show");
