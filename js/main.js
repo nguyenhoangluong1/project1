@@ -19,7 +19,7 @@ toggleBtn.addEventListener("click", (e) => {
 toCelsius.addEventListener("click", () => {
   if (currentUnit !== "C" && currentTemp !== null) {
     currentTemp = ((currentTemp - 32) * 5) / 9;
-    temperatureElement.innerText = `${Math.round(currentTemp)}°C`;
+    temperatureElement.innerText = `${curentTemp.toFixed(2)}°C`;
     currentUnit = "C";
   }
   unitMenu.classList.remove("show");
@@ -29,7 +29,7 @@ toCelsius.addEventListener("click", () => {
 toFahrenheit.addEventListener("click", () => {
   if (currentUnit !== "F" && currentTemp !== null) {
     currentTemp = (currentTemp * 9) / 5 + 32;
-    temperatureElement.innerText = `${Math.round(currentTemp)}°F`;
+    temperatureElement.innerText = `${currentTemp.toFixed(2)}°F`;
     currentUnit = "F";
   }
   unitMenu.classList.remove("show");
@@ -70,9 +70,9 @@ function updateUI(data) {
     currentTemp = parseFloat(temperature); // Cập nhật currentTemp với nhiệt độ mới
     if (currentUnit === "F") {
       currentTemp = (currentTemp * 9) / 5 + 32;
-      temperatureElement.innerText = `${Math.round(currentTemp)}°F`;
+      temperatureElement.innerText = `${currentTemp.toFixed(2)}°F`;
     } else {
-      temperatureElement.innerText = `${Math.round(currentTemp)}°C`;
+      temperatureElement.innerText = `${currentTemp.toFixed(2)}°C`;
     }
   } else {
     temperatureElement.innerText = 'NaN';
