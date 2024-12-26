@@ -5,6 +5,8 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from datetime import datetime
+import base64
+import json
 
 # tải các biến môi trường từ file .env
 load_dotenv()
@@ -15,13 +17,21 @@ CORS(app)
 
 # Các cài đặt cho Google Sheets
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_API_KEY')
+# SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_API_KEY')
 SPREADSHEET_ID = os.getenv('SPREADSHEET_ID1')
 RANGE_NAME = 'Sheet1!C2:F2'
 HISTORY_RANGE = 'Sheet1!A1:F'
 
+# Lấy thông tin xác thực từ biến môi trường và giải mã
+SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_API_KEY')
+if SERVICE_ACCOUNT_FILE:
+    service_account_info = base64.b64decode(SERVICE_ACCOUNT_FILE).decode()
+    service_account_info = json.loads(service_account_info)
+else:
+    raise EnvironmentError('GOOGLE_API_KEY environment variable not set.')
+
 # Tải thông tin xác thực từ file json
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+creds = Credentials.from_service_account_file(service_account_info, scopes=SCOPES)
 
 # Khởi tạo các dịch vụ Google Sheets
 def get_sheets_service():
