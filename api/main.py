@@ -4,6 +4,7 @@ from googleapiclient.discovery import build
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 # tải các biến môi trường từ file .env
 load_dotenv()
@@ -14,9 +15,10 @@ CORS(app)
 
 # Các cài đặt cho Google Sheets
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-SERVICE_ACCOUNT_FILE = os.getenv('SERVICE_ACCOUNT_FILE')
-SPREADSHEET_ID = os.getenv('SHEET_ID')
-RANGE_NAME = 'Sheet1!B2:E2'
+SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_API_KEY')
+SPREADSHEET_ID = os.getenv('SPREADSHEET_ID')
+RANGE_NAME = 'Sheet1!C2:F2'
+HISTORY_RANGE = 'Sheet1!A1:F'
 
 # Tải thông tin xác thực từ file json
 creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
@@ -49,6 +51,42 @@ def get_latest_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/get-history", methods=["GET"])
+def get_history():
+    try:
+        service = get_sheets_service()
+        sheet = service.spreadsheets()
+        # Lấy dữ liệu từ Google Sheets
+        result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range="Sheet1!A2:F").execute()
+        values = result.get("values", [])
 
-# if __name__ == "__main__":
-#     app.run(debug=True, port=5000)
+        # Giới hạn số lượng kết quả trả về là 20
+        history = []
+        for row in values[:20]:
+            # Phân tích datetime từ cột A
+            try:
+                datetime_obj = datetime.strptime(row[0], "%d/%m/%Y %H:%M:%S")
+                date = datetime_obj.strftime("%Y/%m/%d")
+                time = datetime_obj.strftime("%H:%M:%S")
+            except:
+                date = "Invalid date"
+                time = "Invalid time"
+
+            history.append({
+                "date": date,
+                "time": time,
+                "temperature": row[1],
+                "humidity": row[2],
+                "precipitation": row[3],
+                "wind_speed": row[4]
+            })
+
+        return jsonify({"history": history})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)

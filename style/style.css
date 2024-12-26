@@ -1,6 +1,9 @@
-html, body {
-    height: 100%;
+body, html {
     margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 body {
@@ -15,7 +18,7 @@ body {
 }
 
 body#background {
-    background-image: url('./3.jpg');
+    background-image: url('./2.jpg');
     background-size: cover; 
     /* background-position: center; */
     background-repeat: repeat;
@@ -27,25 +30,209 @@ body#background {
     text-align: center;
 }
 
-
+/* Phần nội dung chính chiếm không gian còn lại */
+.main-content {
+    flex: 1;  /* Làm cho phần nội dung chiếm hết không gian còn lại */
+    padding-bottom: 20px;  /* Khoảng cách giữa nội dung và footer */
+    overflow: hidden;  /* Đảm bảo nội dung không tràn ra ngoài */
+}
 
 header {
-    justify-content: space-between;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
+    max-width: 100%;
+    /* position: relative; Đảm bảo các phần tử con có thể được định vị chính xác */
+    flex-wrap: wrap;
 }
 
+/* Bố cục container để chứa địa điểm và tiêu đề */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.location-widget-box {
+    width: 220px; /* Kích thước rộng hơn để chứa form */
+    height: auto; /* Tự động điều chỉnh chiều cao */
+    background: rgba(255, 255, 255, 0.2); /* Nền sáng với độ trong suốt */
+    padding: 20px; /* Padding cho nội dung bên trong */
+    border-radius: 12px; /* Góc bo tròn */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ và mờ */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Canh trên cho form */
+    flex-direction: column;
+    backdrop-filter: blur(10px); /* Hiệu ứng blur */
+    -webkit-backdrop-filter: blur(10px); /* Cho hỗ trợ trên webkit */
+    position: absolute; /* Đặt ở vị trí tuyệt đối trong header */
+    top: 30px; /* Đảm bảo nằm phía trên cùng */
+    left: 50px; /* Đảm bảo nằm bên trái */
+    z-index: 10; /* Đảm bảo box ở trên thẻ h1 */
+    cursor: pointer; /* Biến con trỏ thành hình bàn tay khi hover */
+}
+
+.location-widget-box:hover {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.6);
+    scale: 1.05;
+}
+
+
+/* Text trong địa điểm */
+#location-widget p {
+    margin: 0;
+    color: #333; /* Màu chữ đậm cho dễ nhìn */
+    font-size: 18px;
+}
+
+/* Cải tiến giao diện của form */
+#location-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#location-form input {
+    margin: 10px 0;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#location-form input:focus {
+    border-color: #007BFF; /* Đổi màu viền khi focus */
+}
+
+#location-form button {
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#location-form button:hover {
+    background-color: #0056b3; /* Đổi màu khi hover */
+}
+
+/* Chỉnh lại chiều rộng của địa chỉ */
+#address {
+    font-size: 16px;
+    color: #555;
+    word-wrap: break-word;
+}
+
+
+
+
+/* Tiêu đề chính */
 h1 {
     text-align: center;
-    color: #ffff;
+    color: #4f4f4f; /* Màu chữ đậm */
     font-size: 40px;
+    flex-grow: 1; /* Đảm bảo thẻ h1 chiếm không gian còn lại */
+    margin-left: 220px; /* Đẩy thẻ h1 sang phải để tạo không gian cho .location-widget-box */
+    margin-right: 80px;
 }
+
+#history-widget {
+    position: absolute;
+    top: 60px;
+    right: 60px;  /* Đưa nút lên phía trên bên phải */
+}
+
+.history-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.history-btn:hover {
+    scale: 1.1; /* Phóng to nút khi hover */
+}
+
+.history-btn i {
+    margin-right: 5px; /* Khoảng cách giữa icon và chữ */
+    font-size: 20px; /* Tăng kích thước của icon */
+}
+
+/* Style cho Modal */
+.history-modal {
+    display: none; /* Ẩn mặc định */
+    position: fixed; /* Gắn cố định với màn hình */
+    z-index: 1000; /* Đảm bảo modal ở trên cùng */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nội dung modal */
+.history-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    width: 60%; /* Điều chỉnh chiều rộng của modal */
+    max-height: 70%; /* Giới hạn chiều cao của modal */
+    overflow-y: auto; /* Đảm bảo có thể cuộn nếu quá nhiều nội dung */
+    border-radius: 10px;
+    position: relative;
+}
+
+/* Nút đóng modal */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Style cho bảng trong modal */
+.history-modal-content table {
+    width: 100%; /* Chiếm toàn bộ chiều rộng của modal */
+    border-collapse: collapse;
+}
+
+.history-modal-content th, .history-modal-content td {
+    border: 1px solid #ddd; /* Thêm đường viền cho bảng */
+    padding: 8px;
+    text-align: left;
+}
+
+.history-modal-content th {
+    background-color: #f2f2f2;
+}
+
+
+
 
 .clock {
     font-family: 'Roboto', sans-serif;
     color: #fff;
-    background: rgba(51, 51, 51, 0.4);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px) saturate(150%);
     -webkit-backdrop-filter: blur(10px) saturate(150%);
     padding: 20px;
@@ -67,7 +254,7 @@ h1 {
 .date {
     font-size: 20px;
     margin-top: 10px;
-    color: #fff; /* Màu chữ sáng */
+    color: #4f4f4f; /* Màu chữ sáng */
     padding: 10px; /* Thêm padding để phần ngày có không gian xung quanh */
 }
 
@@ -88,7 +275,7 @@ span {
 
 .weather-box {
     color: #000; /* Màu chữ đậm */
-    background: rgba(255, 255, 255, 0.6); /* Nền bán trong suốt */
+    background: rgba(255, 255, 255, 0.2); /* Nền bán trong suốt */
     backdrop-filter: blur(8px) saturate(120%); /* Hiệu ứng mờ nhẹ hơn */
     -webkit-backdrop-filter: blur(8px) saturate(120%);
     padding: 40px; /* Tăng kích thước padding */
@@ -101,6 +288,13 @@ span {
     transition: transform 0.3s, background-color 0.3s, color 0.3s;
     cursor: pointer;
 
+}
+
+.weather-box:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
 
@@ -116,55 +310,180 @@ span {
     color: #ffffff; /* Màu cho biểu tượng */
 }
 
-/* 
+
+/* Wrapper chứa nút và menu */
+.unit-toggle-wrapper {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+  }
+  
+  /* Nút chuyển đổi */
+  .unit-toggle-btn {
+    width: 25px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .unit-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Menu dropdown */
+  .unit-menu {
+    display: none;
+    position: absolute;
+    top: 35px; /* Xuất hiện bên dưới nút */
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 100;
+  }
+  
+  /* Hiển thị menu khi active */
+  .unit-menu.show {
+    display: block;
+  }
+  
+/* Tùy chọn trong menu - Tăng chiều rộng */
+.menu-option {
+    padding: 8px 20px;  /* Điều chỉnh chiều rộng bằng cách tăng padding */
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s, color 0.3s;
+    width: 100px; /* Tăng chiều rộng của phần tùy chọn */
+  }
+  
+  .menu-option:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Biểu tượng */
+  .icon {
+    font-size: 40px;
+    margin: 10px 0;
+    color: #000; /* Đổi màu biểu tượng */
+  }
+  
+  /* Temperature Box - Căn chỉnh */
+  .temperature-box {
+    position: relative;
+    text-align: center;
+  }
+  
+/* Footer styles */
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333;
-    color: white;
+    /* background-color: #333; */
+    color: #ffff;
     padding: 20px 0;
     text-align: center;
-    font-size: 14px;
-    z-index: 10;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative; /* Change from fixed to relative */
+    margin-top: 220px; 
 }
 
-.footer-content {
+/* Footer container styles */
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Các liên kết mạng xã hội với icon */
+.social-links {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px; /* Giới hạn chiều rộng tối đa của footer */
-    /* margin: 0 auto; Căn giữa footer */
-    /* padding: 0 20px; */
-    /* width: 90%; Chiều rộng của footer sẽ luôn 100% */
-/* } */
-/* 
-.contact-info {
-    display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 20px;
+    margin-bottom: 15px;
+}
+
+.social-icon i {
+    font-size: 28px; /* Kích thước icon */
+    color: #FFFFFF; /* Màu trắng tinh tế */
+    transition: color 0.3s ease-in-out;
+}
+
+.social-icon:hover .fa-facebook-f {
+    color: #3b5998; /* Màu thương hiệu Facebook khi hover */
+}
+
+.social-icon:hover .fa-twitter {
+    color: #1da1f2; /* Màu xanh của X */
+}
+
+.social-icon:hover .fa-github {
+    color: #333333; /* Màu đen GitHub */
+}
+
+.social-icon:hover .fa-discord {
+    color: #5865F2; /* Màu tím Discord */
+}
+
+.social-icon:hover .fa-youtube {
+    color: #FF0000; /* Màu đỏ YouTube */
+}
+
+.contact-info {
+    text-align: center;
+    color: #ffff; /* Màu trắng */
+    font-size: 16px;
 }
 
 .contact-info a {
+    color: #ffff;
     text-decoration: none;
 }
 
-.contact-info img {
-    width: 30px;
-    height: 30px;
-/* } */ 
+.contact-info a:hover {
+    text-decoration: underline;
+}
 
 @media (max-width: 600px) {
     .footer-content {
         flex-direction: column;
         text-align: center;
+        position: fixed;
     }
 
     .contact-info {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+/* Tùy chỉnh thanh cuộn (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px; /* Chiều rộng của thanh cuộn dọc */
+    height: 12px; /* Chiều cao của thanh cuộn ngang */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền thanh cuộn */
+    border-radius: 10px; /* Bo tròn cho thanh nền */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* Màu thanh cuộn */
+    border-radius: 10px; /* Bo tròn cho thanh kéo */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu thanh cuộn khi hover */
 }
 
 

@@ -9,70 +9,148 @@
     <link rel="icon" href="./style/icon.svg">
     <link rel="stylesheet" href="./style/style.css">
 </head>
+
 <body id="background">
-    <header>
-        <h1>Hiển thị các thông số thời tiết theo thời gian thực</h1>
-    </header>
+    <div id="main-content">
+        <header>
+            <div class="header-container">
+                <!-- Địa điểm và icon -->
+                <div id="location-widget" class="location-widget-box">
+                    <p>
+                        <strong>Địa điểm:</strong>
+                        <hr>
+                        <span style="display: inline-flex; align-items: center;">
+                            <i class="fas fa-map-marker-alt" style="color: red; font-size: 24px; margin-right: 8px;"></i>
+                            <span id="address">
+                            </span>
+                        </span>
+                    </p>
+                    <form id="location-form">
+                        <label for="lat">Vĩ độ:</label>
+                        <input type="text" id="lat" placeholder="Nhập vĩ độ" required>
+                        <br>
+                        <label for="lon">Kinh độ:</label>
+                        <input type="text" id="lon" placeholder="Nhập kinh độ" required>
+                        <br>
+                        <button type="submit">Lấy địa chỉ</button>
+                    </form>
+                </div>
 
-    <!-- Hiển thị giờ -->
-    <div class="clock">
-        <div class="time">
-            <span id="hours">00</span>
-            <span>:</span>
-            <span id="minutes">00</span>
-            <span>:</span>
-            <span id="seconds">00</span>
-        </div>
-    </div>
-
-    <!--Phần hiển thị ngày-->
-    <div class="date" id="date">Thứ Tư, 11 Tháng 12, 2024</div> 
-
-    <br></br>
-
-    <div class="weather-container">
-        <!-- Temperature Box -->
-        <div class="weather-box">
-            <div class="icon">🌡️</div>
-            <h3>Nhiệt độ</h3>
-            <p id="temperature">20°C</p>
-        </div>
-
-        <!-- Humidity Box -->
-        <div class="weather-box">
-            <div class="icon">💧</div>
-            <h3>Độ ẩm</h3>
-            <p id="humidity">55%</p>
-        </div>
-
-        <!-- Precipitation Box -->
-        <div class="weather-box">
-            <div class="icon">🌧️</div>
-            <h3>Lượng mưa</h3>
-            <p id="precipitation">00 mm</p>
-        </div>
-
-        <!-- Wind Speed Box -->
-        <div class="weather-box">
-            <div class="icon">🌬️</div>
-            <h3>Tốc độ gió</h3>
-            <p id="windSpeed">8 km/h</p>
-        </div>
-    </div>
-
-    <!-- Các phần khác của trang -->
-    <!-- <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 Your Company. All rights reserved.</p>
-            <div class="contact-info">
-                <a href="https://www.facebook.com/yourprofile" target="_blank" class="social-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Icon" />
-                </a>
-                <p>Phone: +123 456 7890</p>
-                <p>Email: contact@yourcompany.com</p>
+                <!-- Tiêu đề -->
+                <h1>Hiển thị các thông số thời tiết theo thời gian thực</h1>
+        
+                <!-- Nút History ở phía trên bên phải -->
+                <div id="history-widget" class="history-widget-box">
+                    <button id="history-button" class="history-btn">
+                        <i class="fas fa-history" style="color: white; font-size: 24px;"></i>
+                    </button>
+                </div>
+    
+                <!-- Modal Container for History -->
+                <div id="history-modal" class="history-modal">
+                    <div class="history-modal-content">
+                        <span id="close-history" class="close">&times;</span>
+                        <div id="history-data"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        
+        <!-- Hiển thị giờ -->
+        <div class="clock">
+            <div class="time">
+                <span id="hours">00</span>
+                <span>:</span>
+                <span id="minutes">00</span>
+                <span>:</span>
+                <span id="seconds">00</span>
             </div>
         </div>
-    </footer> -->
+    
+        <!--Phần hiển thị ngày-->
+        <div class="date" id="date">Thứ Tư, 11 Tháng 12, 2024</div> 
+    
+        <br></br>
+    
+        <div class="weather-container">
+            <!-- Temperature Box -->
+            <div class="weather-box temperature-box">
+                <!-- Wrapper chứa nút và menu dropdown -->
+                <div class="unit-toggle-wrapper">
+                    <!-- Nút chuyển đổi -->
+                    <button id="toggle-unit" class="unit-toggle-btn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <!-- Menu dropdown -->
+                    <div id="unit-menu" class="unit-menu">
+                        <div class="menu-option" id="to-celsius">Chuyển sang °C</div>
+                        <div class="menu-option" id="to-fahrenheit">Chuyển sang °F</div>
+                    </div>
+                </div>
+                
+                <!-- Phần nội dung chính -->
+                <div class="icon">🌡️</div>
+                <h3>Nhiệt độ</h3>
+                <p id="temperature">20°C</p>
+            </div>
+    
+            <!-- Humidity Box -->
+            <div class="weather-box">
+                <div class="icon">💧</div>
+                <h3>Độ ẩm</h3>
+                <p id="humidity">55%</p>
+            </div>
+    
+            <!-- Precipitation Box -->
+            <div class="weather-box">
+                <div class="icon">🌧️</div>
+                <h3>Lượng mưa</h3>
+                <p id="precipitation">00 mm</p>
+            </div>
+    
+            <!-- Wind Speed Box -->
+            <div class="weather-box">
+                <div class="icon">🌬️</div>
+                <h3>Tốc độ gió</h3>
+                <p id="windSpeed">8 km/h</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Các liên kết mạng xã hội với icon -->
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=100054224985406" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://github.com/thi04" target="_blank" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://discord.com" target="_blank" class="social-icon">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://youtube.com" target="_blank" class="social-icon">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            
+            
+            <!-- Thông tin liên hệ -->
+            <div class="contact-info">
+                <p>Email: <a href="mailto:pvthi.dhkm16a3hn@sv.uneti.edu.vn">pvthi.dhkm16a3hn@sv.uneti.edu.vn</a></p>
+                <p>Phone: <a href="tel:+1234567890">+1234567890</a></p>
+            </div>
+        </div>
+    </footer>
+        
     
     
 
