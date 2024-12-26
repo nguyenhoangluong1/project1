@@ -27,7 +27,7 @@ function fetchLatestData() {
 
 // Hàm cập nhật giao diện
 function updateUI(data) {
-  const [temperature, humidity, precipitation, windSpeed] = data;
+  const [temperature, humidity, precipitation, windSpeed] = data.map(value => value || "NaN");
   document.getElementById("temperature").textContent = `${temperature} °C`;
   document.getElementById("humidity").textContent = `${humidity} %`;
   document.getElementById("precipitation").textContent = `${precipitation} mm`;
@@ -168,12 +168,12 @@ document.getElementById("history-button").addEventListener("click", function() {
 
               historyData.forEach(item => {
                   html += `<tr>
-                      <td>${item.date}</td>
-                      <td>${item.time}</td>
-                      <td>${item.temperature}</td>
-                      <td>${item.humidity}</td>
-                      <td>${item.precipitation}</td>
-                      <td>${item.wind_speed}</td>
+                      <td>${item.date || "NaN"}</td>
+                      <td>${item.time || "NaN"}</td>
+                      <td>${item.temperature || "NaN"}</td>
+                      <td>${item.humidity || "NaN"}</td>
+                      <td>${item.precipitation || "NaN"}</td>
+                      <td>${item.wind_speed || "NaN"}</td>
                   </tr>`;
               });
 
