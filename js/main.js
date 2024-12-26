@@ -1,5 +1,5 @@
-// const API_URL = "https://project1-two-beta.vercel.app/get-latetst-data";
-const API_URL = "http://127.0.0.1:5000/get-latest-data";
+const API_URL = "https://project1-two-beta.vercel.app/get-latetst-data";
+// const API_URL = "http://127.0.0.1:5000/get-latest-data";
 
 // Lấy dữ liệu mới nhất từ server
 function fetchLatestData() {
@@ -159,7 +159,7 @@ document.getElementById("history-button").addEventListener("click", function() {
       historyModal.style.display = "none";
   } else {
       // Fetch dữ liệu lịch sử từ server
-      fetch("http://127.0.0.1:5000/get-history")
+      fetch("https://project1-two-beta.vercel.app/get-history")
           .then(response => response.json())
           .then(data => {
               const historyData = data.history.slice(0, 20); // Lấy tối đa 20 truy vấn

@@ -1,40 +1,44 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/main.py",  
-        "use": "@vercel/python"  
-      },
-      {
-        "src": "index.html",
-        "use": "@vercel/static"  
-      },
-      {
-        "src": "style/**",
-        "use": "@vercel/static" 
-      },
-      {
-        "src": "js/**",
-        "use": "@vercel/static"
-      }  
-    ],
-    "routes": [
-      {
-        "src": "/get-latest-data",  
-        "dest": "api/main.py" 
-      },
-      {
-        "src": "/js/(.*)",  
-        "dest": "/js/$1"    
-      },
-      {
-        "src": "/style/(.*)",  
-        "dest": "/style/$1"    
-      },
-      {
-        "src": "/(.*)",  
-        "dest": "/index.html" 
-      }
-    ]
+  "version": 2,
+  "builds": [
+    {
+    "src": "api/main.py",  
+    "use": "@vercel/python"  
+    },
+    {
+    "src": "index.html",
+    "use": "@vercel/static"  
+    },
+    {
+    "src": "style/**",
+    "use": "@vercel/static" 
+    },
+    {
+    "src": "js/**",
+    "use": "@vercel/static"
+    }  
+  ],
+  "routes": [
+    {
+    "src": "/get-latest-data",  
+    "dest": "api/main.py" 
+    },
+    {
+    "src": "/get-history",
+    "dest": "api/main.py"
+    },
+    {
+    "src": "/js/(.*)",  
+    "dest": "/js/$1"    
+    },
+    {
+    "src": "/style/(.*)",  
+    "dest": "/style/$1"    
+    },
+    {
+    "src": "/(.*)",  
+    "dest": "/index.html" 
+    }
+  ]
   }
   
