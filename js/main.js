@@ -1,5 +1,44 @@
 const API_URL = "https://project1-two-beta.vercel.app/get-latest-data";
 // const API_URL = "http://127.0.0.1:5000/get-latest-data";
+let currentTemp = null; // Nhiệt độ mẫu
+let currentUnit = "C";
+
+const toggleBtn = document.getElementById("toggle-unit");
+const unitMenu = document.getElementById("unit-menu");
+const toCelsius = document.getElementById("to-celsius");
+const toFahrenheit = document.getElementById("to-fahrenheit");
+const temperatureElement = document.getElementById("temperature");
+
+// Toggle menu dropdown
+toggleBtn.addEventListener("click", (e) => {
+  unitMenu.classList.toggle("show");
+  e.stopPropagation(); // Ngăn việc click lan ra ngoài
+});
+
+// Chuyển đổi sang °C
+toCelsius.addEventListener("click", () => {
+  if (currentUnit !== "C" && currentTemp !== null) {
+    currentTemp = ((currentTemp - 32) * 5) / 9;
+    temperatureElement.innerText = `${Math.round(currentTemp)}°C`;
+    currentUnit = "C";
+  }
+  unitMenu.classList.remove("show");
+});
+
+// Chuyển đổi sang °F
+toFahrenheit.addEventListener("click", () => {
+  if (currentUnit !== "F" && currentTemp !== null) {
+    currentTemp = (currentTemp * 9) / 5 + 32;
+    temperatureElement.innerText = `${Math.round(currentTemp)}°F`;
+    currentUnit = "F";
+  }
+  unitMenu.classList.remove("show");
+});
+
+// Ẩn menu khi click ra ngoài
+window.addEventListener("click", () => {
+  unitMenu.classList.remove("show");
+});
 
 // Lấy dữ liệu mới nhất từ server
 function fetchLatestData() {
@@ -24,18 +63,27 @@ function fetchLatestData() {
     .catch(error => console.error("Error:", error));
 }
 
-
 // Hàm cập nhật giao diện
 function updateUI(data) {
-  const [temperature, humidity, precipitation, windSpeed] = data.map(value => value || "NaN");
-  document.getElementById("temperature").textContent = `${temperature} °C`;
+  const [temperature, humidity, precipitation, windSpeed] = data.map(value => value || 'NaN');
+  if (!isNaN(temperature)) {
+    currentTemp = parseFloat(temperature); // Cập nhật currentTemp với nhiệt độ mới
+    if (currentUnit === "F") {
+      currentTemp = (currentTemp * 9) / 5 + 32;
+      temperatureElement.innerText = `${Math.round(currentTemp)}°F`;
+    } else {
+      temperatureElement.innerText = `${Math.round(currentTemp)}°C`;
+    }
+  } else {
+    temperatureElement.innerText = 'NaN';
+  }
   document.getElementById("humidity").textContent = `${humidity} %`;
   document.getElementById("precipitation").textContent = `${precipitation} mm`;
   document.getElementById("windSpeed").textContent = `${windSpeed} km/h`;
 }
 
-// Gửi 1 request sau mỗi 30 giây
-setInterval(fetchLatestData, 30000);
+// Gửi 1 request sau mỗi 60 giây
+setInterval(fetchLatestData, 60000);
 
 // ------------------------------------------------------------------------------------------------
 
@@ -66,45 +114,45 @@ updateClockAndDate(); // Gọi ngay lần đầu khi load trang
 
 //-----------------------------------------------------------------------------------------------
 // Hiển thị nhiệt độ mẫu và chuyển đổi giữa °C và °F
-let currentTemp = null; // Nhiệt độ mẫu
-let currentUnit = "C";
+// let currentTemp = null; // Nhiệt độ mẫu
+// let currentUnit = "C";
 
-const toggleBtn = document.getElementById("toggle-unit");
-const unitMenu = document.getElementById("unit-menu");
-const toCelsius = document.getElementById("to-celsius");
-const toFahrenheit = document.getElementById("to-fahrenheit");
-const temperatureElement = document.getElementById("temperature");
+// const toggleBtn = document.getElementById("toggle-unit");
+// const unitMenu = document.getElementById("unit-menu");
+// const toCelsius = document.getElementById("to-celsius");
+// const toFahrenheit = document.getElementById("to-fahrenheit");
+// const temperatureElement = document.getElementById("temperature");
 
-// Toggle menu dropdown
-toggleBtn.addEventListener("click", (e) => {
-  unitMenu.classList.toggle("show");
-  e.stopPropagation(); // Ngăn việc click lan ra ngoài
-});
+// // Toggle menu dropdown
+// toggleBtn.addEventListener("click", (e) => {
+//   unitMenu.classList.toggle("show");
+//   e.stopPropagation(); // Ngăn việc click lan ra ngoài
+// });
 
-// Chuyển đổi sang °C
-toCelsius.addEventListener("click", () => {
-  if (currentUnit !== "C") {
-    currentTemp = ((currentTemp - 32) * 5) / 9;
-    temperatureElement.innerText = `${Math.round(currentTemp)}°C`;
-    currentUnit = "C";
-  }
-  unitMenu.classList.remove("show");
-});
+// // Chuyển đổi sang °C
+// toCelsius.addEventListener("click", () => {
+//   if (currentUnit !== "C") {
+//     currentTemp = ((currentTemp - 32) * 5) / 9;
+//     temperatureElement.innerText = `${Math.round(currentTemp)}°C`;
+//     currentUnit = "C";
+//   }
+//   unitMenu.classList.remove("show");
+// });
 
-// Chuyển đổi sang °F
-toFahrenheit.addEventListener("click", () => {
-  if (currentUnit !== "F") {
-    currentTemp = (currentTemp * 9) / 5 + 32;
-    temperatureElement.innerText = `${Math.round(currentTemp)}°F`;
-    currentUnit = "F";
-  }
-  unitMenu.classList.remove("show");
-});
+// // Chuyển đổi sang °F
+// toFahrenheit.addEventListener("click", () => {
+//   if (currentUnit !== "F") {
+//     currentTemp = (currentTemp * 9) / 5 + 32;
+//     temperatureElement.innerText = `${Math.round(currentTemp)}°F`;
+//     currentUnit = "F";
+//   }
+//   unitMenu.classList.remove("show");
+// });
 
-// Ẩn menu khi click ra ngoài
-window.addEventListener("click", () => {
-  unitMenu.classList.remove("show");
-});
+// // Ẩn menu khi click ra ngoài
+// window.addEventListener("click", () => {
+//   unitMenu.classList.remove("show");
+// });
 
 // ------------------------------------------------------------------------------------------------
 
@@ -196,5 +244,3 @@ window.addEventListener("click", function(event) {
       document.getElementById("history-modal").style.display = "none";
   }
 });
-
-
