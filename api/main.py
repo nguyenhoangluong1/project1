@@ -18,7 +18,7 @@ CORS(app)
 # Các cài đặt cho Google Sheets
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 SPREADSHEET_ID = os.getenv('SPREADSHEET_ID')
-RANGE_NAME = 'Sheet1!B2:D2'
+RANGE_NAME = 'Sheet1!B2:E2'
 HISTORY_RANGE = 'Sheet1!A1:F'
 
 # Lấy thông tin xác thực từ biến môi trường và giải mã
