@@ -17,8 +17,8 @@ CORS(app)
 
 # Các cài đặt cho Google Sheets
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-SPREADSHEET_ID = os.getenv('SPREADSHEET_ID1')
-RANGE_NAME = 'Sheet1!C2:F2'
+SPREADSHEET_ID = os.getenv('SPREADSHEET_ID')
+RANGE_NAME = 'Sheet1!B2:D2'
 HISTORY_RANGE = 'Sheet1!A1:F'
 
 # Lấy thông tin xác thực từ biến môi trường và giải mã
@@ -60,6 +60,7 @@ def get_latest_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+"""
 @app.route("/get-history", methods=["GET"])
 def get_history():
     try:
@@ -76,6 +77,42 @@ def get_history():
                     "humidity": row[3], 
                     "precipitation": row[4], 
                     "wind_speed": row[5]} for row in values[:20]]
+
+        return jsonify({"history": history})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+"""
+
+@app.route("/get-history", methods=["GET"])
+def get_history():
+    try:
+        service = get_sheets_service()
+        sheet = service.spreadsheets()
+        # Lấy dữ liệu từ Google Sheets
+        result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range="Sheet1!A2:E").execute()
+        values = result.get("values", [])
+
+        # Giới hạn số lượng kết quả trả về là 20
+        history = []
+        for row in values[:20]:
+            # Tách ngày và giờ từ cột đầu tiên
+            try:
+                datetime_obj = datetime.strptime(row[0], '%d/%m/%Y %H:%M:%S')
+                date = datetime_obj.strftime('%d/%m/%Y')
+                time = datetime_obj.strftime('%H:%M:%S')
+            except:
+                date = "N/A"
+                time = "N/A"
+
+            history.append({
+                "date": date,
+                "time": time,
+                "temperature": row[1],
+                "humidity": row[2],
+                "precipitation": row[3],
+                "wind_speed": row[4]
+            })
 
         return jsonify({"history": history})
 

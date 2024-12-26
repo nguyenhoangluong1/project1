@@ -34,8 +34,8 @@ function updateUI(data) {
   document.getElementById("windSpeed").textContent = `${windSpeed} km/h`;
 }
 
-// Gửi 1 request sau mỗi 30 giây
-setInterval(fetchLatestData, 30000);
+// Gửi 1 request sau mỗi 1 phút
+setInterval(fetchLatestData, 60000);
 
 // ------------------------------------------------------------------------------------------------
 
@@ -164,7 +164,7 @@ document.getElementById("history-button").addEventListener("click", function() {
           .then(data => {
               const historyData = data.history.slice(0, 20); // Lấy tối đa 20 truy vấn
 
-              let html = "<h3>Lịch sử truy vấn</h3><table><tr><th>Ngày</th><th>Thời gian</th><th>Nhiệt độ (°C)</th><th>Độ ẩm (%)</th><th>Lượng mưa (mm)</th><th>Tốc độ gió  (km/h)</th></tr>";
+              let html = "<h3>Tra cứu lịch sử</h3><table><tr><th>Ngày</th><th>Thời gian</th><th>Nhiệt độ (°C)</th><th>Độ ẩm (%)</th><th>Lượng mưa (mm)</th><th>Tốc độ gió  (km/h)</th></tr>";
 
               historyData.forEach(item => {
                   html += `<tr>
