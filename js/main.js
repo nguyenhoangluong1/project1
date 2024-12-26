@@ -66,7 +66,7 @@ updateClockAndDate(); // Gọi ngay lần đầu khi load trang
 
 //-----------------------------------------------------------------------------------------------
 // Hiển thị nhiệt độ mẫu và chuyển đổi giữa °C và °F
-let currentTemp = 20; // Nhiệt độ mẫu
+let currentTemp = null; // Nhiệt độ mẫu
 let currentUnit = "C";
 
 const toggleBtn = document.getElementById("toggle-unit");
