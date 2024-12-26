@@ -1,5 +1,7 @@
 const API_URL = "https://project1-two-beta.vercel.app/get-latest-data";
 // const API_URL = "http://127.0.0.1:5000/get-latest-data";
+
+
 let currentTemp = null; // Nhiệt độ mẫu
 let currentUnit = "C";
 
